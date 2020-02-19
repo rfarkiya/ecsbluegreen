@@ -1,0 +1,12 @@
+.idea
+*.pyc
+*.swp
+
+dist/
+build/
+env/
+*.egg-info/
+
+.tox/
+.coverage
+.cache
