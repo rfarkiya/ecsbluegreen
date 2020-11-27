@@ -6,7 +6,7 @@ from time import sleep
 import click
 import json
 import getpass
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 
 from ecs_deploy import VERSION
 from ecs_deploy.ecs import DeployAction,  DeployBlueGreenAction, ScaleAction, RunAction, EcsClient, DiffAction, \

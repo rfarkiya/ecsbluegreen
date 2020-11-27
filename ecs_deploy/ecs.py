@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timezone
 import time
 import json
 import re
@@ -162,14 +162,14 @@ class EcsService(dict):
         for deployment in self.get(u'deployments'):
             if deployment.get(u'status') == u'PRIMARY':
                 return deployment.get(u'createdAt')
-        return datetime.now()
+        return datetime.now(timezone.utc)
 
     @property
     def deployment_updated_at(self):
         for deployment in self.get(u'deployments'):
             if deployment.get(u'status') == u'PRIMARY':
                 return deployment.get(u'updatedAt')
-        return datetime.now()
+        return datetime.now(timezone.utc)
 
     @property
     def errors(self):
@@ -186,7 +186,8 @@ class EcsService(dict):
 
     def get_warnings(self, since=None, until=None):
         since = since or self.deployment_created_at
-        until = until or datetime.now(tz=tzlocal())
+        #until = until or datetime.now(tz=tzlocal())
+        until = until or datetime.now(timezone.utc)
         errors = {}
         for event in self.get(u'events'):
             if u'unable' not in event[u'message']:
